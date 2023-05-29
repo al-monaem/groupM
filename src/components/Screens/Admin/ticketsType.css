@@ -1,0 +1,32 @@
+td {
+    padding: 15px 0px 15px 15px;
+}
+
+.ReactModal__Overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    z-index: 100;
+
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+.ReactModal__Content {
+    outline: none;
+    scale: 0;
+    transition: scale 1000ms;
+}
+
+.ReactModal__Content--after-open {
+    scale: 100%;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
+}

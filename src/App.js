@@ -1,24 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+import TicketsType from './components/Screens/Admin/TicketsType';
+import Error from './components/Error';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route Component={Layout}>
+          <Route path="/" element={<Navigate to={"/admin/ticketsType"} />} exact={true} />
+          <Route path="/admin/ticketsType" Component={TicketsType} exact={true} />
+          <Route path='*' Component={Error} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
