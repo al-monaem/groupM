@@ -75,21 +75,19 @@ const TicketsType = () => {
     useEffect(() => {
         setMobileModalOpen(false)
         setModalOpen(false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mobile])
 
     useEffect(() => {
         setEnd(totalTypes)
-        return () => {
-            console.log("Unmount")
-        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [totalTypes])
     useEffect(() => {
         setSelectedLink("1")
         setStart(1)
         calculateLinks("1", totalTypes, limit, setLinks, setEnd)
-        return () => {
-            console.log("Unmount")
-        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [limit])
     useEffect(() => {
         if (start > end && start !== 0) {
@@ -97,16 +95,14 @@ const TicketsType = () => {
             setSelectedLink((parseInt(selectedLink) - 1).toString())
         }
         setFilteredTicketsType(ticketsType.slice(start - 1, end))
-        return () => {
-            console.log("Unmount")
-        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [start, end])
     useEffect(() => {
         setFilteredTicketsType(ticketsType.slice(start - 1, end))
         calculateLinks(selectedLink, totalTypes, limit, setLinks, setEnd)
-        return () => {
-            console.log("Unmount")
-        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ticketsType])
 
     const props = {

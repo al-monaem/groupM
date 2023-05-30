@@ -20,6 +20,8 @@ function App() {
     return () => {
       window.removeEventListener('resize', checkScreenSize); // Clean up event listener on component unmount
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
