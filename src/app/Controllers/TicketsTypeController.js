@@ -1,4 +1,8 @@
-export const handlePagination = (id, setStart, setEnd, setSelectedLink, totalTypes, limit) => {
+export const handlePagination = (id, setStart, setEnd, setSelectedLink, totalTypes, limit, ticketsType) => {
+
+    if (ticketsType.length === 0)
+        return;
+
     const link = id
     setStart((link - 1) * limit + 1)
     const endTicket = (link * limit)

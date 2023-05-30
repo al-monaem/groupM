@@ -80,26 +80,35 @@ const TicketsType = () => {
     }, [mobile])
 
     useEffect(() => {
+        if (ticketsType.length === 0)
+            return
         setEnd(totalTypes)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [totalTypes])
     useEffect(() => {
+        if (ticketsType.length === 0)
+            return
         setSelectedLink("1")
         setStart(1)
         calculateLinks("1", totalTypes, limit, setLinks, setEnd)
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [limit])
     useEffect(() => {
+        if (ticketsType.length === 0)
+            return
         if (start > end && start !== 0) {
             setStart(start - limit)
             setSelectedLink((parseInt(selectedLink) - 1).toString())
         }
         setFilteredTicketsType(ticketsType.slice(start - 1, end))
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [start, end])
     useEffect(() => {
+        if (ticketsType.length === 0) {
+            setStart(0)
+            setEnd(0)
+            return;
+        }
         setFilteredTicketsType(ticketsType.slice(start - 1, end))
         calculateLinks(selectedLink, totalTypes, limit, setLinks, setEnd)
 
@@ -150,7 +159,12 @@ const TicketsType = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredTicketsType.map((ticket, index) => {
+                        {filteredTicketsType.length === 0 &&
+                            <tr className="border-b text-center font-semibold">
+                                <td colSpan={4}>No tickets type found!</td>
+                            </tr>
+                        }
+                        {filteredTicketsType.length > 0 && filteredTicketsType.map((ticket, index) => {
                             return (
                                 <tr className="border-b" key={ticket.id}>
                                     <td className="text-[#7169e8]">#{ticket.id}</td>
@@ -194,19 +208,19 @@ const TicketsType = () => {
                     }
                     <div className="pr-10 flex space-x-2 items-center">
                         <IoIosArrowBack
-                            onClick={() => handlePagination((parseInt(selectedLink) - 1).toString(), setStart, setEnd, setSelectedLink, totalTypes, limit)}
+                            onClick={() => handlePagination((parseInt(selectedLink) - 1).toString(), setStart, setEnd, setSelectedLink, totalTypes, limit, ticketsType)}
                             className={`hover:cursor-pointer hover:bg-[#7169e8] transtition hover:text-white font-semibold bg-[#e8e8e9] rounded-full border p-1 ${mobile ? "w-6 h-6" : "w-8 h-8"} ${selectedLink === links[0].toString() ? "disabled pointer-events-none text-[#bbb9bf]" : ""}`} />
                         {links.map((link) => {
                             return (
                                 <button
                                     id={link}
                                     key={link}
-                                    onClick={e => handlePagination(e.target.id, setStart, setEnd, setSelectedLink, totalTypes, limit)}
+                                    onClick={e => handlePagination(e.target.id, setStart, setEnd, setSelectedLink, totalTypes, limit, ticketsType)}
                                     className={`font-semibold rounded-md border px-3 py-1 ${selectedLink === link.toString() ? "text-white bg-[#7169e8]" : "bg-[#e8e8e9]"}`}>{link}</button>
                             )
                         })}
                         <IoIosArrowForward
-                            onClick={() => handlePagination((parseInt(selectedLink) + 1).toString(), setStart, setEnd, setSelectedLink, totalTypes, limit)}
+                            onClick={() => handlePagination((parseInt(selectedLink) + 1).toString(), setStart, setEnd, setSelectedLink, totalTypes, limit, ticketsType)}
                             className={`hover:cursor-pointer hover:bg-[#7169e8] transition hover:text-white font-semibold bg-[#e8e8e9] rounded-full border p-1 ${mobile ? "w-6 h-6" : "w-8 h-8"} ${selectedLink === links[links.length - 1].toString() ? "disabled pointer-events-none text-[#bbb9bf]" : ""}`} />
                     </div>
                 </div>
