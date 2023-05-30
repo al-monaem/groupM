@@ -75,6 +75,7 @@ const TicketsType = () => {
     useEffect(() => {
         setMobileModalOpen(false)
         setModalOpen(false)
+        document.title = 'Manage Tickets Type';
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mobile])
 
