@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     const checkScreenSize = () => {
-      dispatch(setMobile(window.innerWidth <= 900)) // Adjust the threshold value as needed
+      dispatch(setMobile(window.innerWidth < 900)) // Adjust the threshold value as needed
     };
 
     window.addEventListener('resize', checkScreenSize); // Check screen size on window resize

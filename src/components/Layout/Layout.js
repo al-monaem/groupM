@@ -33,7 +33,7 @@ const Layout = () => {
         <div className={`w-screen h-screen flex relative ${selected.theme} `}>
             <motion.div
                 key={mobile}
-                className={`h-full bg-white ${mobile ? "absolute z-10 hidden w-[30%]" : "w-[20%]"}`}
+                className={`h-full bg-white ${mobile ? "absolute z-10 hidden w-[50%]" : "w-[20%]"}`}
                 animate={controls}
                 transition={{ duration: 0.5 }}
             >
