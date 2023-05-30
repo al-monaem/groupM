@@ -7,6 +7,7 @@ const initialState = {
         description: "Internet not connecting or slow"
     }],
     totalTypes: 1,
+    idCount: 1,
 }
 
 const ticketsTypeSlice = createSlice({
@@ -16,9 +17,10 @@ const ticketsTypeSlice = createSlice({
         add: (state, action) => {
             state.ticketsType.push({
                 ...action.payload,
-                id: String(state.totalTypes + 1).padStart(4, '0')
+                id: String(state.idCount + 1).padStart(4, '0')
             })
             state.totalTypes++
+            state.idCount++
         },
         update: (state, action) => {
             const { id, type, description } = action.payload
@@ -27,9 +29,15 @@ const ticketsTypeSlice = createSlice({
                 ticket.type = type
                 ticket.description = description
             }
-        }
+        },
+        deleteTicketType: (state, action) => {
+            const { id } = action.payload
+            const updatedList = state.ticketsType.filter(ticket => ticket.id !== id)
+            state.ticketsType = updatedList
+            state.totalTypes = updatedList.length
+        },
     }
 })
 
-export const { add, update } = ticketsTypeSlice.actions
+export const { add, update, deleteTicketType } = ticketsTypeSlice.actions
 export default ticketsTypeSlice.reducer

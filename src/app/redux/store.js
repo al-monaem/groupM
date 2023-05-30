@@ -12,6 +12,7 @@ import {
 import { combineReducers } from "@reduxjs/toolkit";
 
 import ticketsTypeReducer from "./AdminSlices/TicketsTypeSlice"
+import settingsReducer from "./Common/SettingsSlice"
 
 const persistConfig = {
     key: "root",
@@ -20,7 +21,8 @@ const persistConfig = {
 }
 
 const reducer = combineReducers({
-    ticketsTypeReducer: ticketsTypeReducer
+    ticketsTypeReducer: ticketsTypeReducer,
+    settingsReducer: settingsReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)
