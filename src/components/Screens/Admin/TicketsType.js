@@ -47,7 +47,10 @@ const TicketsType = () => {
     }
     const submitTicket = (e) => {
         e.preventDefault()
-
+        if (totalTypes === 0) {
+            setStart(1)
+            setSelectedLink("1")
+        }
         const data = {
             type: type,
             description: description
@@ -80,13 +83,15 @@ const TicketsType = () => {
     }, [mobile])
 
     useEffect(() => {
-        if (ticketsType.length === 0)
+        if (totalTypes === 0) {
+            setEnd(0)
             return
+        }
         setEnd(totalTypes)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [totalTypes])
     useEffect(() => {
-        if (ticketsType.length === 0)
+        if (totalTypes === 0)
             return
         setSelectedLink("1")
         setStart(1)
@@ -94,23 +99,29 @@ const TicketsType = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [limit])
     useEffect(() => {
-        if (ticketsType.length === 0)
+        if (totalTypes === 0)
             return
         if (start > end && start !== 0) {
+            const l = (parseInt(selectedLink) - 1).toString()
+            if (l === "0")
+                return
             setStart(start - limit)
-            setSelectedLink((parseInt(selectedLink) - 1).toString())
+            setSelectedLink(l)
         }
         setFilteredTicketsType(ticketsType.slice(start - 1, end))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [start, end])
     useEffect(() => {
-        if (ticketsType.length === 0) {
+        if (totalTypes === 0) {
             setStart(0)
             setEnd(0)
+            setFilteredTicketsType(ticketsType.slice(0, 0))
             return;
         }
-        setFilteredTicketsType(ticketsType.slice(start - 1, end))
+        console.log(selectedLink)
+
         calculateLinks(selectedLink, totalTypes, limit, setLinks, setEnd)
+        setFilteredTicketsType(ticketsType.slice(start - 1, end))
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ticketsType])
